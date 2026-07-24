@@ -67,7 +67,7 @@ export default function Order() {
           <Pizza
             name="Pepperoni"
             description="Mozzarella Cheese, Pepperoni"
-            image="/public/pizzas/pepperoni.webp"
+            img="/public/pizzas/pepperoni.webp"
           />
           <p>$13.37</p>
         </div>
