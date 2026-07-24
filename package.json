@@ -1,0 +1,32 @@
+{
+  "name": "ginos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*,{js,jsx,ts,tsx,html,css}",
+    "lint": "eslint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "Victor M",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitejs/plugin-react": "^6.0.4",
+    "eslint": "^10.7.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.6",
+    "vite": "^8.1.5"
+  },
+  "dependencies": {
+    "prop-types": "^15.8.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}
