@@ -1,10 +1,39 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Pizza from "./Pizza";
 
+const intl = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 export default function Order() {
+  const [pizzaTypes, setPizzaTypes] = useState([]);
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
+  const [loading, setloading] = useState(true);
+
+  let price, selectedPizza;
+
+  if (!loading) {
+    selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
+    price = intl.format(selectedPizza.sizes[pizzaSize]);
+  }
+
+  async function fetchPizzaTypes() {
+    const pizzaRes = await fetch("/api/pizzas");
+    const pizzaJson = await pizzaRes.json();
+    setPizzaTypes(pizzaJson);
+    setloading(false);
+  }
+
+  useEffect(() => {
+    fetchPizzaTypes();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="order">
@@ -18,9 +47,13 @@ export default function Order() {
               name="pizza-type"
               value={pizzaType}
             >
-              <option value="pepperoni">The Pepperoni Pizza</option>
-              <option value="hawaiian">The Hawaiian Pizza</option>
-              <option value="big_meat">The Big Meat Pizza</option>
+              {pizzaTypes.map((pizza) => {
+                return (
+                  <option key={pizza.id} value={pizza.id}>
+                    {pizza.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
@@ -64,12 +97,17 @@ export default function Order() {
           <button type="submit">Add to Cart</button>
         </div>
         <div className="order-pizza">
-          <Pizza
-            name="Pepperoni"
-            description="Mozzarella Cheese, Pepperoni"
-            img="/public/pizzas/pepperoni.webp"
-          />
-          <p>$13.37</p>
+          {loading ? (
+            <h1>Loading Pizza</h1>
+          ) : (
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              img={selectedPizza.image}
+            />
+          )}
+
+          <p>{price}</p>
         </div>
       </form>
     </div>
