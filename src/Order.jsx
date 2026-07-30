@@ -13,7 +13,7 @@ export default function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [cart, setCart] = useState([]);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   async function checkout() {
     setLoading(true);
@@ -43,7 +43,7 @@ export default function Order() {
     const pizzaRes = await fetch("/api/pizzas");
     const pizzaJson = await pizzaRes.json();
     setPizzaTypes(pizzaJson);
-    setloading(false);
+    setLoading(false);
   }
 
   useEffect(() => {
