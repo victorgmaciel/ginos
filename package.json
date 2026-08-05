@@ -25,6 +25,9 @@
     "vite": "^8.1.5"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.170.18",
+    "@tanstack/router-devtools": "^1.167.0",
+    "@tanstack/router-plugin": "^1.168.23",
     "prop-types": "^15.8.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
