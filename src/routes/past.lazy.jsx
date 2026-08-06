@@ -4,10 +4,19 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import getPastOrders from "../api/getPastOrders";
 import getPastOrder from "../api/getPastOrder";
 import Modal from "../Modal";
+import ErrorBoundary from "../ErrorBoundary";
 
 export const Route = createLazyFileRoute("/past")({
-  component: PastOrdersRoute,
+  component: ErrorBoundaryWrappedPastOrderRoutes,
 });
+
+function ErrorBoundaryWrappedPastOrderRoutes() {
+  return (
+    <ErrorBoundary>
+      <PastOrdersRoute />
+    </ErrorBoundary>
+  );
+}
 
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -27,7 +36,7 @@ function PastOrdersRoute() {
     queryKey: ["past-order", focusedOrder],
     queryFn: () => getPastOrder(focusedOrder),
     enabled: !!focusedOrder,
-    staleTime: 24 * 60 * 60 * 1000, // one day in milliseconds,
+    staleTime: 24 * 60 * 60 * 1000, // 24 hours in a day, 60 min per hour, 60 seconds per min, 1000 milliseconds per second,
   });
 
   if (isLoading) {
