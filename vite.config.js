@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { environmentManager } from "@tanstack/react-query";
 
 export default defineConfig({
   server: {
@@ -16,4 +17,7 @@ export default defineConfig({
     },
   },
   plugins: [tanstackRouter(), react()],
+  test: {
+    environment: "happy-dom",
+  },
 });
